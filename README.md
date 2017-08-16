@@ -1,7 +1,7 @@
 # qvcalc
 R package for quasi-variances
 
-This repository is where the CRAN package **qvcalc** is maintained.
+This repository is where the CRAN package **qvcalc** is maintained.  The package URL on CRAN is https://cloud.r-project.org/web/packages/qvcalc/index.html .
 
 The **qvcalc** package provides functions to compute and display *quasi-variances* that often allow a more economical 
 summary of the variance-covariance matrix for parameters in a statistical model.
