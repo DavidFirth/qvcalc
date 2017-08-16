@@ -9,6 +9,12 @@ summary of the variance-covariance matrix for parameters in a statistical model.
 For more details, see the references below and the web page at http://warwick.ac.uk/qvcalc (which gives information 
 also about an online calculator implemented in javascript, for those who do not use *R*).
 
+The package version to be found here is the development version, snapshots of which are published periodically on CRAN.  If you want to install this development version in *R*, then you can for example use:
+
+    library(devtools)
+    install_github(DavidFirth/qvcalc)
+
+
 ## References
 
 Firth, D. and Menezes, R. X. de (2004). Quasi-variances. *Biometrika* **91**, 65–80.  http://dx.doi.org/10.1093/biomet/91.1.65
