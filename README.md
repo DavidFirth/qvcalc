@@ -7,7 +7,7 @@ The **qvcalc** package provides functions to compute and display *quasi-variance
 summary of the variance-covariance matrix for parameters in a statistical model.
 
 For more details, see the references below and the web page at http://warwick.ac.uk/qvcalc (which gives information 
-also about an online calculator for those who do not use *R*.
+also about an online calculator implemented in javascript, for those who do not use *R*).
 
 ## References
 
