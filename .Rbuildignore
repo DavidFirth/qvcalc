@@ -1,3 +1,4 @@
 .svn
 ^.*\.Rproj$
 ^\.Rproj\.user$
+README.md$
