@@ -1,81 +1,9 @@
-qvcalc <- function(object, factorname = NULL, coef.indices = NULL,
+qvcalc <- function (object, ...) UseMethod("qvcalc")
+
+qvcalc.default <- function(object, factorname = NULL, coef.indices = NULL,
                    labels = NULL, dispersion = NULL,
                    estimates = NULL, modelcall = NULL)
 {
-  coef.indices.saved <- coef.indices
-  if (!is.matrix(object)) {
-      model <- object
-      ## special case of an unstructured Bradley-Terry model
-      ## more standard lm, glm, etc. objects
-      if (is.null(factorname) && is.null(coef.indices)) {
-          stop("arguments \"factorname\" and \"coef.indices\" are both NULL")
-      }
-      if (is.null(coef.indices)) {   ## try to use factorname
-          term.index <- which(attr(terms(model),"term.labels") == factorname)
-          modelmat <- model.matrix(model)
-          has.coef <- colnames(modelmat) %in% names(coef(model))
-          coef.indices <- which(attr(modelmat,"assign")[has.coef] == term.index)
-          if (length(model$xlevels[[factorname]]) == length(coef.indices)){
-      ## factor has no constraint applied, eg if no intercept in model
-              contmat <- diag(length(coef.indices))}
-          else {
-              contmat <- eval(call(model$contrasts[[factorname]],
-                                   model$xlevels[[factorname]]))}
-#          rownames(contmat) <- model$xlevels[[factorname]]  ## not needed?
-          if (is.null(estimates))
-              estimates <- contmat %*% coef(model)[coef.indices]
-          covmat <- vcov(model, dispersion = dispersion)
-          covmat <- covmat[coef.indices, coef.indices, drop = FALSE]
-          covmat <- contmat %*% covmat %*% t(contmat)
-      }
-      else {
-          k <- length(coef.indices)
-          refPos <- numeric(0)
-          if (0 %in% coef.indices) { ## there's a reference level to include
-              refPos <- which(coef.indices == 0)
-              coef.indices <- coef.indices[-refPos]
-          }
-          covmat <- vcov(model, dispersion = dispersion)
-          covmat <- covmat[coef.indices, coef.indices, drop = FALSE]
-          if (is.null(estimates)) estimates <- coef(model)[coef.indices]
-          if (length(refPos) == 1) {
-              if (length(estimates) != k) estimates <- c(0, estimates)
-              covmat <- cbind(0, rbind(0, covmat))
-              names(estimates)[1] <- rownames(covmat)[1] <-
-                  colnames(covmat)[1] <- "(reference)"
-              if (refPos != 1) {
-                  if (refPos == k){
-                      perm <- c(2:k, 1)
-                  } else {
-                      perm <- c(2:refPos, 1, (refPos + 1):k)
-                  }
-                  estimates <- estimates[perm]
-                  covmat <- covmat[perm, perm, drop = FALSE]
-              }
-          }
-      }
-      return(qvcalc(covmat,
-                    factorname = factorname,
-                    coef.indices = coef.indices.saved,
-                    labels = labels,
-                    dispersion = dispersion,
-                    estimates = estimates,
-                    modelcall = model$call)
-             )
-      }
-  else {  ##  the basic QV calculation, on a covariance matrix
-      if (inherits(object, "BTabilities")) {  ## catch this special case first
-          vc <- vcov(object)
-          cf <- coef(object)
-          if (is.null(factorname)) factorname <- attr(object, "factorname")
-          if (is.null(modelcall)) modelcall <- attr(object, "modelcall")
-          return(qvcalc(vc,
-                        factorname = factorname,
-                        labels = labels,
-                        dispersion = dispersion,
-                        estimates = cf,
-                        modelcall = modelcall))
-      }
       covmat <- object
       if (!is.null(labels)) rownames(covmat) <- colnames(covmat) <- labels
       n <- dim(covmat)[1]
@@ -122,7 +50,7 @@ qvcalc <- function(object, factorname = NULL, coef.indices = NULL,
           sapply(simple.contrasts(n, levelnames),
 	          function(contrast){contrast.variance(contrast, covmat)})
       }
-      response <- simple.contrast.variances(n,covmat)
+      response <- simple.contrast.variances(n, covmat)
       if (any(response <= 0)) {
           stop("not all contrasts have positive variance")
       } else response <- log(response)
@@ -167,8 +95,8 @@ qvcalc <- function(object, factorname = NULL, coef.indices = NULL,
                             factorname = factorname,
                             coef.indices = coef.indices,
                             modelcall = modelcall),
- 	            class="qv"))}
-  }
+ 	            class="qv"))
+      }
 
 worstErrors <- function(qv.object)
 {

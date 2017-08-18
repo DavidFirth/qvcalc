@@ -11,7 +11,8 @@ for estimated model coefficients relating to the levels of a categorical
 Firth (2000), Firth (2003) or Firth and de Menezes (2004).  Quasi variances 
 generalize
 and improve the accuracy of \dQuote{floating absolute risk} 
-(Easton et al., 1991). 
+(Easton et al., 1991).  This device for economical model summary was
+first suggested by Ridout (1989).
 }
 \usage{
 qvcalc(object, factorname = NULL,  coef.indices = NULL,
@@ -99,9 +100,17 @@ Firth, D. and de Mezezes, R. X. (2004)  Quasi-variances.
 McCullagh, P. and Nelder, J. A. (1989) \emph{Generalized Linear Models}.
   London: Chapman and Hall.
 
-Menezes, R. X. (1999)  More useful standard errors for group and factor
+Menezes, R. X. de (1999)  More useful standard errors for group and factor
   effects in generalized linear models.  \emph{D.Phil. Thesis},
   Department of Statistics, University of Oxford.
+
+Ridout, M.S. (1989). Summarizing the results of fitting generalized
+linear models to data from designed experiments. In: \emph{Statistical
+  Modelling: Proceedings of GLIM89 and the 4th International
+Workshop on Statistical Modelling held in Trento, Italy, July 17--21,
+1989}
+(A. Decarli et al., eds.), pp 262--269. New York: Springer.
+  
 }
 \author{David Firth, \email{d.firth@warwick.ac.uk}}
 
