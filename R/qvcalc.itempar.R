@@ -1,4 +1,4 @@
-qvcalc.itempar <- function(object){
+qvcalc.itempar <- function(object, ...){
   if (!(attr(object, "alias"))) stop(
                   "the itempar object was not built with 'alias = TRUE'")
   vc <- vcov(object)

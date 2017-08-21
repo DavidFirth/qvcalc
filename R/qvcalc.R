@@ -1,127 +1,105 @@
+##  The qvcalc generic and default method.  And methods for print, summary and plot,
+##  for a resulting "qv" object.
+
+
 qvcalc <- function (object, ...) UseMethod("qvcalc")
 
 qvcalc.default <- function(object, factorname = NULL, coef.indices = NULL,
                    labels = NULL, dispersion = NULL,
-                   estimates = NULL, modelcall = NULL)
+                   estimates = NULL, modelcall = NULL, ...)
 {
-      covmat <- object
-      if (!is.null(labels)) rownames(covmat) <- colnames(covmat) <- labels
-      n <- dim(covmat)[1]
-      if (n <= 2) stop(
-           "qvcalc works only for factors with 3 or more levels")
-      simple.contrasts <- function(n, levelnames = 1:n){
-          result <- list()
-          for (i in 1:(n-1)){
-	          for (j in (i+1):n){
-		          result[[paste(levelnames[i],
-                                        levelnames[j],
-                                        sep = ",")]] <- c(i, j)}}
-          result
-      }
-      qvdesign <- function(n){
-          nrows <- choose(n, 2)
-          m <- matrix(0, nrows, n)
-          indices <- simple.contrasts(n)
-          for (i in 1:nrows){
-	          m[i, indices[[i]][1]] <- 1
-	          m[i, indices[[i]][2]] <- 1}
-          m
-      }
-      level <- qvdesign(n)
-      contrast.variance <- function(contrast, covmat){
-          if (!(is.matrix(covmat) &&
+    covmat <- object
+    if (!is.null(labels)) rownames(covmat) <- colnames(covmat) <- labels
+    n <- dim(covmat)[1]
+    if (n <= 2) stop(
+                    "qvcalc works only for factors with 3 or more levels")
+    simple.contrasts <- function(n, levelnames = 1:n){
+        result <- list()
+        for (i in 1:(n-1)){
+            for (j in (i+1):n){
+                result[[paste(levelnames[i],
+                              levelnames[j],
+                              sep = ",")]] <- c(i, j)}}
+        result
+    }
+    qvdesign <- function(n){
+        nrows <- choose(n, 2)
+        m <- matrix(0, nrows, n)
+        indices <- simple.contrasts(n)
+        for (i in 1:nrows){
+            m[i, indices[[i]][1]] <- 1
+            m[i, indices[[i]][2]] <- 1}
+        m
+    }
+    level <- qvdesign(n)
+    contrast.variance <- function(contrast, covmat){
+        if (!(is.matrix(covmat) &&
               (dim(covmat)[1] == dim(covmat)[2])))
-          stop("covmat must be a square matrix")
-          n <- dim(covmat)[1]
-         if (length(contrast) == n && sum(contrast) == 0)
-             ## arbitrary contrast vector
-             return(as.vector(contrast %*% covmat %*% contrast))
-         if (length(contrast) == 2 && all(contrast %in% 1:n)){
-             ## simple contrast specified as an index pair
-	         i <- contrast[1]
-	         j <- contrast[2]
-	         return(covmat[i,i] + covmat[j,j] - 2*covmat[i,j])}
-         else stop("invalid contrast")
-      }
-      simple.contrast.variances <- function(n, covmat){
-          if (!is.null(rownames(covmat)))
-              levelnames <- rownames(covmat)
-          else levelnames <- 1:n
-          sapply(simple.contrasts(n, levelnames),
-	          function(contrast){contrast.variance(contrast, covmat)})
-      }
-      response <- simple.contrast.variances(n, covmat)
-      if (any(response <= 0)) {
-          stop("not all contrasts have positive variance")
-      } else response <- log(response)
-      expLinear <- structure(list(
-        	           family = "expLinear",
-        	           link = "exp",
-	    	           linkfun = function(mu) exp(mu),
-        	           linkinv = function(eta) log(eta),
-       		           variance = function(mu) rep(1, length(mu)),
-        	           dev.resids = function(y, mu, wt) wt *
-                           ((y - mu)^2),
-        	           aic = function(y, n, mu, wt, dev) sum(wt) *
-                           (log(dev/sum(wt) * 2 * pi) + 1) + 2,
-        	           mu.eta = function (eta) 1/eta,
-                           initialize = expression({
-                               n <- rep(1, nobs)
-                               mustart <- y}),
-                       validmu = function(mu) TRUE),
-                   class = "family")
-      model <- glm(response ~ 0 + level, family = expLinear)
-      qv <- coef(model)
-      NAs <- rep(NA, length(qv))
-      if (!is.null(rownames(covmat))) names(qv) <- rownames(covmat)
-      frame <- data.frame(estimate = NAs,
-                          SE = sqrt(diag(covmat)),
-                          quasiSE = sqrt(qv),
-                          quasiVar = qv,
-                          row.names = names(qv))
-      if (!is.null(estimates)) frame$estimate <- estimates
-      relerrs <-  sqrt(exp(- residuals(model))) - 1
-      ##  The above formula was corrected in v0.8-9; it
-      ##  previously said 1 - sqrt(exp(residuals(model)), which is
-      ##  not what should be expected for "relative error" here.
-      ##  This corrected version agrees with the Biometrika paper.
-      ##  Thanks to Shaun Killingbeck for spotting this error in the
-      ##  previous version.
-      names(relerrs) <- names(response)
-      return(structure(list(covmat = covmat,
-                            qvframe = frame,
- 	      	            dispersion = dispersion,
-                            relerrs = relerrs,
-                            factorname = factorname,
-                            coef.indices = coef.indices,
-                            modelcall = modelcall),
- 	            class="qv"))
-      }
-
-worstErrors <- function(qv.object)
-{
-    reducedForm <- function(covmat, qvmat){
-        nlevels <- dim(covmat)[1]
- 	firstRow <- covmat[1, ]
- 	ones <- rep(1, nlevels)
- 	J <- outer(ones, ones)
- 	notzero <- 2:nlevels
- 	r.covmat <- covmat + (firstRow[1]*J) -
- 		             outer(firstRow, ones) -
- 	   		     outer(ones, firstRow)
- 	r.covmat <- r.covmat[notzero, notzero]
- 	qv1 <- qvmat[1, 1]
- 	r.qvmat <- (qvmat + qv1*J)[notzero, notzero]
- 	list(r.covmat, r.qvmat)}
-    covmat <- qv.object$covmat
-    qvmat <- diag(qv.object$qvframe$quasiVar)
-    r.form <- reducedForm(covmat, qvmat)
-    r.covmat <- r.form[[1]]
-    r.qvmat <- r.form[[2]]
-    inverse.sqrt <- solve(chol(r.covmat))
-    evalues <- eigen(t(inverse.sqrt) %*% r.qvmat %*% inverse.sqrt,
- 	               symmetric=TRUE)$values
-    sqrt(c(min(evalues), max(evalues))) - 1
+            stop("covmat must be a square matrix")
+        n <- dim(covmat)[1]
+        if (length(contrast) == n && sum(contrast) == 0)
+            ## arbitrary contrast vector
+            return(as.vector(contrast %*% covmat %*% contrast))
+        if (length(contrast) == 2 && all(contrast %in% 1:n)){
+            ## simple contrast specified as an index pair
+            i <- contrast[1]
+            j <- contrast[2]
+            return(covmat[i,i] + covmat[j,j] - 2*covmat[i,j])}
+        else stop("invalid contrast")
+    }
+    simple.contrast.variances <- function(n, covmat){
+        if (!is.null(rownames(covmat)))
+            levelnames <- rownames(covmat)
+        else levelnames <- 1:n
+        sapply(simple.contrasts(n, levelnames),
+               function(contrast){contrast.variance(contrast, covmat)})
+    }
+    response <- simple.contrast.variances(n, covmat)
+    if (any(response <= 0)) {
+        stop("not all contrasts have positive variance")
+    } else response <- log(response)
+    expLinear <- structure(list(
+        family = "expLinear",
+        link = "exp",
+        linkfun = function(mu) exp(mu),
+        linkinv = function(eta) log(eta),
+        variance = function(mu) rep(1, length(mu)),
+        dev.resids = function(y, mu, wt) wt *
+                                         ((y - mu)^2),
+        aic = function(y, n, mu, wt, dev) sum(wt) *
+                                          (log(dev/sum(wt) * 2 * pi) + 1) + 2,
+        mu.eta = function (eta) 1/eta,
+        initialize = expression({
+            n <- rep(1, nobs)
+            mustart <- y}),
+        validmu = function(mu) TRUE),
+        class = "family")
+    model <- glm(response ~ 0 + level, family = expLinear)
+    qv <- coef(model)
+    NAs <- rep(NA, length(qv))
+    if (!is.null(rownames(covmat))) names(qv) <- rownames(covmat)
+    frame <- data.frame(estimate = NAs,
+                        SE = sqrt(diag(covmat)),
+                        quasiSE = sqrt(qv),
+                        quasiVar = qv,
+                        row.names = names(qv))
+    if (!is.null(estimates)) frame$estimate <- estimates
+    relerrs <-  sqrt(exp(- residuals(model))) - 1
+    ##  The above formula was corrected in v0.8-9; it
+    ##  previously said 1 - sqrt(exp(residuals(model)), which is
+    ##  not what should be expected for "relative error" here.
+    ##  This corrected version agrees with the Biometrika paper.
+    ##  Thanks to Shaun Killingbeck for spotting this error in the
+    ##  previous version.
+    names(relerrs) <- names(response)
+    return(structure(list(covmat = covmat,
+                          qvframe = frame,
+                          dispersion = dispersion,
+                          relerrs = relerrs,
+                          factorname = factorname,
+                          coef.indices = coef.indices,
+                          modelcall = modelcall),
+                     class="qv"))
 }
 
 indentPrint <- function(object, indent = 4, ...){
@@ -172,8 +150,8 @@ plot.qv <- function(x,
     frame <- x$qvframe
     if (!is.null(levelNames)) {
         if (nrow(frame) != length(levelNames)) stop(
-                "levelNames is not a vector of the right length"
-                )
+                                  "levelNames is not a vector of the right length"
+                                               )
         row.names(frame) <- levelNames
     }
     if (is.null(frame$quasiSE))
