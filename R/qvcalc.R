@@ -142,7 +142,7 @@ summary.qv <- function(object, ...)
 plot.qv <- function(x,
                     intervalWidth = 2,
                     ylab = "estimate",
-                    xlab = x$factorname,
+                    xlab = "",
                     ylim = NULL,
                     main = "Intervals based on quasi standard errors",
                     levelNames = NULL,
@@ -171,7 +171,6 @@ plot.qv <- function(x,
     tails <- est - (intervalWidth * se)
     range <- max(tops) - min(tails)
     if (is.null(ylim)) ylim <- c(min(tails) - range/10, max(tops) + range/10)
-    if (is.null(xlab)) xlab <- "factor level"
     plot(faclevels, frame$estimate, border = "transparent", ylim = ylim,
          xlab = xlab, ylab = ylab,
          main = main, ...)

@@ -167,7 +167,7 @@ if (require(MASS)) {
                      offset = log(service))
     shiptype.qvs <- qvcalc(shipmodel, "type")
     summary(shiptype.qvs, digits = 4)
-    plot(shiptype.qvs)
+    plot(shiptype.qvs, xlab = "ship type")
 ## An equivalent result by using the coef.indices argument instead:
     shiptype.qv2 <- qvcalc(shipmodel, coef.indices = c(0, 2:5))
 }
@@ -178,7 +178,7 @@ if (require(BradleyTerry2)) {
     example(baseball)
     baseball.qv <- qvcalc(BTabilities(baseballModel2))
     print(baseball.qv)
-    plot(baseball.qv,
+    plot(baseball.qv, xlab = "team",
          levelNames = c("Bal", "Bos", "Cle", "Det", "Mil", "NY", "Tor"))
     }
 
