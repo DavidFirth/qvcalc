@@ -2,6 +2,14 @@
 
 *This history starts with version 0.8-9 (3 February 2015).  Earlier versions are not listed here.*
 
+### 0.9-1
+
+(2017-08-22)
+
+Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.
+The package includes method `qvcalc.lm` for linear and generalized linear models.  The back-end
+computation is now done in `qvcalc.default`.
+
 ### 0.9-0 
 
 (2016-03-30)
