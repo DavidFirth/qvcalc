@@ -4,7 +4,7 @@
 
 ### 0.9-1
 
-(2017-08-22)
+(2017-08-22, in development)
 
 Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.
 The package includes method `qvcalc.lm` for linear and generalized linear models.  The back-end
@@ -12,12 +12,12 @@ computation is now done in `qvcalc.default`.
 
 ### 0.9-0 
 
-(2016-03-30)
+(2016-03-30, on CRAN)
 
 Minor tweaks to fix the dependencies NOTE on CRAN checks
 
 ### 0.8-9 
 
-(2015-02-03)
+(2015-02-03, on CRAN)
 
 Corrects an error in the calculation of the relative errors for simple contrasts. The formula used for this now agrees with the definition of relative error that was given in the Biometrika paper. Many thanks to Shaun Killingbeck for spotting the error in version 0.8-8. Also made some small improvements to examples, and cosmetic changes to avoid a NOTE in the latest CRAN checks.
