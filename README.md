@@ -2,6 +2,7 @@
 R package for quasi-variances
 
 [![Travis-CI Build Status](https://travis-ci.org/DavidFirth/qvcalc.svg?branch=master)](https://travis-ci.org/DavidFirth/qvcalc)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/qvcalc)](https://cran.r-project.org/package=qvcalc)
 
 This repository is where the CRAN package **qvcalc** is maintained.  The package URL on CRAN is https://cloud.r-project.org/web/packages/qvcalc/index.html .
 
