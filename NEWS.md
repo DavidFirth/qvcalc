@@ -4,11 +4,13 @@
 
 ### 0.9-1
 
-(2017-08-22, in development)
+(2017-09-18, submitted to CRAN)
 
 Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.
-The package includes method `qvcalc.lm` for linear and generalized linear models.  The back-end
-computation is now done in `qvcalc.default`.
+
+The package includes method `qvcalc.lm` for linear and generalized linear models.  The back-end computation is now done in `qvcalc.default`.
+
+The method for `BTabilities` objects is now moved to the `BradleyTerry2` package (version 1.0-8).  Thanks go to Heather Turner for that.
 
 ### 0.9-0 
 
