@@ -3,7 +3,6 @@
 \alias{qvcalc.default}
 \alias{qvcalc.lm}
 \alias{qvcalc.itempar}
-\alias{qvcalc.BTabilities}
 \alias{summary.qv}
 \alias{print.qv}
 \title{Quasi Variances for Model Coefficients}
@@ -28,8 +27,6 @@ qvcalc(object, ...)
 \method{qvcalc}{lm}(object, factorname = NULL, coef.indices = NULL,
        dispersion = NULL, ...)
 
-\method{qvcalc}{BTabilities}(object, ...)
-
 \method{qvcalc}{itempar}(object, ...)
 }
 \arguments{
@@ -38,9 +35,8 @@ qvcalc(object, ...)
   constrained to zero).  For the generic \code{qvcalc}, the
   \code{object} can be any object for which the relevant S3 method has
   been defined.  These currently include many types of regression model
-  (via \code{qvcalc.lm}), and objects of class
-  \code{\link[psychotools]{itempar}} and
-  \code{\link[BradleyTerry2]{BTabilities}}.}
+  (via \code{qvcalc.lm}) and objects of class
+  \code{\link[psychotools]{itempar}}.}
 \item{factorname}{Either \code{NULL}, or a character vector of length 1}
 \item{coef.indices}{Either \code{NULL}, or a numeric vector of length at
   least 3}  
@@ -171,16 +167,6 @@ if (require(MASS)) {
 ## An equivalent result by using the coef.indices argument instead:
     shiptype.qv2 <- qvcalc(shipmodel, coef.indices = c(0, 2:5))
 }
-
-##  Quasi-variance summary for "ability" estimates in a Bradley-Terry model
-##  Requires the "BradleyTerry2" package
-if (require(BradleyTerry2)) {
-    example(baseball)
-    baseball.qv <- qvcalc(BTabilities(baseballModel2))
-    print(baseball.qv)
-    plot(baseball.qv, xlab = "team",
-         levelNames = c("Bal", "Bos", "Cle", "Det", "Mil", "NY", "Tor"))
-    }
 
 ## Based on an example from ?itempar
 if(require(psychotools)) {

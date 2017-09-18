@@ -2,7 +2,7 @@ importFrom("graphics", "plot", "points", "segments")
 importFrom("stats", "coef", "glm", "model.matrix", "residuals",
              "terms", "vcov")
 
-export(qvcalc, worstErrors, indentPrint, qvcalc.default, qvcalc.lm, qvcalc.BTabilities,
+export(qvcalc, worstErrors, indentPrint, qvcalc.default, qvcalc.lm,
        qvcalc.itempar)
 
 S3method(print, qv)
@@ -10,6 +10,5 @@ S3method(summary, qv)
 S3method(plot, qv)
 
 S3method(qvcalc, itempar)
-S3method(qvcalc, BTabilities)
 S3method(qvcalc, lm)
 S3method(qvcalc, default)
