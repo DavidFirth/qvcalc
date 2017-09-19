@@ -4,7 +4,7 @@
 
 ### 0.9-1
 
-(2017-09-18, submitted to CRAN)
+(2017-09-18, on CRAN)
 
 Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.
 
