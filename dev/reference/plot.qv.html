@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Accuracy of a Quasi-variance Approximation — worstErrors • qvcalc</title>
+<title>Plot method for objects of class qv — plot.qv • qvcalc</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,15 +30,13 @@
 
 
 
-<meta property="og:title" content="Accuracy of a Quasi-variance Approximation — worstErrors" />
+<meta property="og:title" content="Plot method for objects of class qv — plot.qv" />
 
-<meta property="og:description" content="Computes the worst relative error, among all contrasts,
-  for the standard error as derived from a set of quasi variances.
-  For details of the method see Menezes (1999) or Firth and
-  Menezes (2004)." />
+<meta property="og:description" content="Provides visualization of estimated contrasts using intervals based on
+  quasi standard errors." />
 <meta name="twitter:card" content="summary" />
 
-
+<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -66,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qvcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9000</span>
       </span>
     </div>
 
@@ -100,40 +98,87 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Accuracy of a Quasi-variance Approximation</h1>
+    <h1>Plot method for objects of class qv</h1>
     
-    <div class="hidden name"><code>worstErrors.Rd</code></div>
+    <div class="hidden name"><code>plot.qv.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Computes the worst relative error, among all contrasts,
-  for the standard error as derived from a set of quasi variances.
-  For details of the method see Menezes (1999) or Firth and
-  Menezes (2004).</p>
+    <p>Provides visualization of estimated contrasts using intervals based on
+  quasi standard errors.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>worstErrors</span>(<span class='no'>qv.object</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for qv</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>intervalWidth</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"estimate"</span>,
+    <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Intervals based on quasi standard errors"</span>,
+    <span class='kw'>levelNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>qv.object</th>
-      <td><p>An object of class <code>qv</code></p></td>
+      <th>x</th>
+      <td><p>an object of class <code>"qv"</code>, typically the result of
+  calling <code>qvcalc</code></p></td>
+    </tr>
+    <tr>
+      <th>intervalWidth</th>
+      <td><p>the half-width, in quasi standard errors, of the
+  plotted intervals</p></td>
+    </tr>
+    <tr>
+      <th>ylab</th>
+      <td><p>as for <code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a></code></p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>as for <code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a></code></p></td>
+    </tr>
+    <tr>
+      <th>ylim</th>
+      <td><p>as for <code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a></code></p></td>
+    </tr>
+    <tr>
+      <th>main</th>
+      <td><p>as for <code><a href='https://www.rdocumentation.org/packages/graphics/topics/plot.default'>plot.default</a></code></p></td>
+    </tr>
+    <tr>
+      <th>levelNames</th>
+      <td><p>labels to be used on the x axis for the levels of
+  the factor whose effect is plotted</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>other arguments understood by <code>plot</code></p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>If <code>levelNames</code> is unspecified, the row names of <code>x$qvframe</code>
+  will be used.</p>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numeric vector of length 2, the worst negative relative
-  error and the worst positive relative error.</p>
+    <p><code><a href='https://www.rdocumentation.org/packages/base/topics/invisible'>invisible(x)</a></code></p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Firth, D. and Mezezes, R. X. de (2004)  Quasi-variances.  
-  <em>Biometrika</em> <b>91</b>, 69--80.</p>  
+    <p>Easton, D. F, Peto, J. and Babiker, A. G. A. G. (1991)  
+Floating absolute risk: an alternative to relative risk in survival 
+and case-control analysis avoiding an arbitrary reference group.  
+<em>Statistics in Medicine</em> <b>10</b>, 1025--1035.</p>
+<p>Firth, D. (2000)  Quasi-variances in Xlisp-Stat and on the web.  
+  <em>Journal of Statistical Software</em> <b>5.4</b>, 1--13.  
+  At <a href='http://www.jstatsoft.org'>http://www.jstatsoft.org</a></p>
+<p>Firth, D. (2003) Overcoming the reference category problem in the 
+presentation of statistical models. <em>Sociological Methodology</em> 
+<b>33</b>, 1--18.</p>
+<p>Firth, D. and Mezezes, R. X. de (2004)  Quasi-variances.  
+  <em>Biometrika</em> <b>91</b>, 65--80.</p>
 <p>McCullagh, P. and Nelder, J. A. (1989) <em>Generalized Linear Models</em>.
   London: Chapman and Hall.</p>
 <p>Menezes, R. X. (1999)  More useful standard errors for group and factor
@@ -147,7 +192,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##  Overdispersed Poisson loglinear model for ship damage data</span>
-<span class='co'>##  from McCullagh and Nelder (1989), Sec 6.3.2</span>
+<span class='co'>##  from McCullagh and Nelder (1989), Sec 6.3.2 </span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>MASS</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ships</span>)
 <span class='no'>ships</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span>(<span class='no'>ships</span>$<span class='no'>year</span>)
@@ -156,7 +201,7 @@
     <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>quasipoisson</span>,
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ships</span>, <span class='kw'>subset</span> <span class='kw'>=</span> (<span class='no'>service</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>), <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log</a></span>(<span class='no'>service</span>))
 <span class='no'>shiptype.qvs</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qvs</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qvs</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
 #&gt; Factor name:  type 
 #&gt;       estimate     SE quasiSE quasiVar
 #&gt;     A  0.00000 0.0000  0.2010  0.04039
@@ -165,13 +210,15 @@
 #&gt;     D -0.07596 0.3779  0.3239  0.10491
 #&gt;     E  0.32558 0.3067  0.2322  0.05390
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 0.9 
-#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'><span class='fu'>worstErrors</span>(<span class='no'>shiptype.qvs</span>)</div><div class='output co'>#&gt; [1] -0.02099427  0.01563661</div></pre>
+#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>shiptype.qvs</span>)</div><div class='img'><img src='plot.qv-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#value">Value</a></li>
 
       <li><a href="#references">References</a></li>
