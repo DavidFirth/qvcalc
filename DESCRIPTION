@@ -1,10 +1,10 @@
 Package: qvcalc
-Version: 0.9-1
-Date: 2017-09-18
+Version: 0.9-2
+Date: 2019-05-08
 Title: Quasi Variances for Factor Effects in Statistical Models
 Author: David Firth
 Maintainer: David Firth <d.firth@warwick.ac.uk>
-URL: https://github.com/DavidFirth/qvcalc
+URL: https://davidfirth.github.io/qvcalc
 Description: Functions to compute quasi variances and associated measures of approximation error.
 Suggests: relimp, MASS, pkgdown
 Enhances: psychotools
