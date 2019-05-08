@@ -2,7 +2,7 @@
 
 * Setup of pkgdown and deployment via Travis CI
 
-# qvcalc 0.9-1 (2017-09-18, on CRAN)
+# qvcalc 0.9-1 (on CRAN)
 
 * Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.
 
@@ -10,12 +10,14 @@
 
 * The method for `BTabilities` objects is now moved to the `BradleyTerry2` package (version 1.0-8).  Thanks go to Heather Turner for that.
 
-# qvcalc 0.9-0 (2016-03-30, on CRAN)
+# qvcalc 0.9-0 (on CRAN)
 
 * Minor tweaks to fix the dependencies NOTE on CRAN checks
 
-# qvcalc 0.8-9 (2015-02-03, on CRAN)
+# qvcalc 0.8-9 (on CRAN)
 
 * Corrects an error in the calculation of the relative errors for simple contrasts. The formula used for this now agrees with the definition of relative error that was given in the Biometrika paper. Many thanks to Shaun Killingbeck for spotting the error in version 0.8-8. Also made some small improvements to examples, and cosmetic changes to avoid a NOTE in the latest CRAN checks.
+
+-----
 
 *This history starts with version 0.8-9 (3 February 2015).  Earlier versions are not listed here.*
