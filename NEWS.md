@@ -1,4 +1,4 @@
-# Version history
+# 0.9-2
 
 *This history starts with version 0.8-9 (3 February 2015).  Earlier versions are not listed here.*
 
