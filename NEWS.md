@@ -1,3 +1,9 @@
+# qvcalc 1.0.0
+
+* Fixed a minor bug in plot.qv()
+
+* Added an example to the help page for plot.qv, to show how to re-order the points/lines in a call to plot.qv()
+
 # qvcalc 0.9-1
 
 * Reorganised `qvcalc` as an S3 generic function, to allow others to provide class-specific methods.

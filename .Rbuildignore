@@ -1,6 +1,9 @@
 .svn
+.git
+.gitignore
 ^.*\.Rproj$
 ^\.Rproj\.user$
 README.md$
 .travis.yml
 ^\.travis\.yml$
+docs

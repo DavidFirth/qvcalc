@@ -64,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qvcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -200,8 +200,8 @@ presentation of statistical models. <em>Sociological Methodology</em>
 <span class='no'>shipmodel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>incidents</span> ~ <span class='no'>type</span> + <span class='no'>year</span> + <span class='no'>period</span>,
     <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>quasipoisson</span>,
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ships</span>, <span class='kw'>subset</span> <span class='kw'>=</span> (<span class='no'>service</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>), <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log</a></span>(<span class='no'>service</span>))
-<span class='no'>shiptype.qvs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='qvcalc.html'>qvcalc</a></span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qvs</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
+<span class='no'>qvs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='qvcalc.html'>qvcalc</a></span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>qvs</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
 #&gt; Factor name:  type 
 #&gt;       estimate     SE quasiSE quasiVar
 #&gt;     A  0.00000 0.0000  0.2010  0.04039
@@ -210,7 +210,11 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt;     D -0.07596 0.3779  0.3239  0.10491
 #&gt;     E  0.32558 0.3067  0.2322  0.05390
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 0.9 
-#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>shiptype.qvs</span>)</div><div class='img'><img src='plot.qv-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>qvs</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"red"</span>, <span class='fl'>4</span>), <span class='st'>"blue"</span>))</div><div class='img'><img src='plot.qv-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## if we want to plot in decreasing order (of estimates):</span>
+<span class='no'>est</span> <span class='kw'>&lt;-</span> <span class='no'>qvs</span>$<span class='no'>qvframe</span>$<span class='no'>estimate</span>
+<span class='no'>qvs2</span> <span class='kw'>&lt;-</span> <span class='no'>qvs</span>
+<span class='no'>qvs2</span>$<span class='no'>qvframe</span> <span class='kw'>&lt;-</span> <span class='no'>qvs</span>$<span class='no'>qvframe</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/order'>order</a></span>(<span class='no'>est</span>, <span class='kw'>decreasing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), , <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>]
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>qvs2</span>)</div><div class='img'><img src='plot.qv-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
