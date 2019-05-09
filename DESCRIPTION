@@ -1,5 +1,5 @@
 Package: qvcalc
-Version: 1.0.0.9000
+Version: 0.9-1
 Date: 2019-05-08
 Title: Quasi Variances for Factor Effects in Statistical Models
 Author: David Firth
@@ -9,4 +9,4 @@ Description: Functions to compute quasi variances and associated measures of app
 Suggests: relimp, MASS, pkgdown
 Enhances: psychotools
 License: GPL-2 | GPL-3
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

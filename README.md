@@ -3,24 +3,17 @@
 [![Travis-CI Build Status](https://travis-ci.org/DavidFirth/qvcalc.svg?branch=master)](https://travis-ci.org/DavidFirth/qvcalc)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/qvcalc)](https://cran.r-project.org/package=qvcalc)
 
-Full package documentation, including version history, is at https://davidfirth.github.io/qvcalc .
-
 The **qvcalc** package provides _R_ functions to compute and display *quasi-variances* that often allow a more economical 
 summary of the variance-covariance matrix for parameters in a statistical model.
+
+Full package documentation, including version history, can be viewed at https://davidfirth.github.io/qvcalc .
 
 For more details on the statistical method, see the references below. 
 
 The web page at http://warwick.ac.uk/qvcalc gives information 
 also about an online calculator implemented in _JavaScript_, for those who do not use *R*.
 
-The package version at GitHub is the development version, snapshots of which are published periodically on CRAN. 
-
-If you want to install the development version in *R*, then you can for example use:
-```
-library(devtools)
-install_github(DavidFirth/qvcalc)
-```
-For the released version on CRAN:
+To install the package from CRAN (in _R_):
 ```
 install.packages("qvcalc")
 ```
