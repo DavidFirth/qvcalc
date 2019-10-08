@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qvcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
       </span>
     </div>
 
@@ -135,6 +135,9 @@
 <span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='kw'>factorname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coef.indices</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
        <span class='kw'>dispersion</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for coxph</span>
+<span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='kw'>factorname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coef.indices</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
 <span class='co'># S3 method for itempar</span>
 <span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
@@ -148,8 +151,10 @@
   constrained to zero).  For the generic <code>qvcalc</code>, the
   <code>object</code> can be any object for which the relevant S3 method has
   been defined.  These currently include many types of regression model
-  (via <code>qvcalc.lm</code>) and objects of class
-  <code>itempar</code>.</p></td>
+  (via <code>qvcalc.lm</code>), including objects of class
+  <code><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></code>; 
+  and also objects of class
+  <code><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></code>.</p></td>
     </tr>
     <tr>
       <th>factorname</th>
@@ -210,7 +215,7 @@
   must have its <code>"alias"</code> attribute be <code>TRUE</code>.  These
   attributes result from use of the default arguments
   <code>vcov = TRUE, alias = TRUE</code>
-  when the <code>itempar</code> function is called.</p>  
+  when the <code><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></code> function is called.</p>  
 <p>Ordinarily the quasi variances are positive and so their square roots
   (the quasi standard errors) exist and can be used in plots, etc.</p>
 <p>Occasionally one (and only one) of the quasi variances is negative, and
@@ -288,11 +293,15 @@ presentation of statistical models. <em>Sociological Methodology</em>
                      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ships</span>,
                      <span class='kw'>subset</span> <span class='kw'>=</span> (<span class='no'>service</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>),
                      <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log</a></span>(<span class='no'>service</span>))
-    <span class='no'>shiptype.qvs</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qvs</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>shiptype.qvs</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"ship type"</span>)
-<span class='co'>## An equivalent result by using the coef.indices argument instead:</span>
-    <span class='no'>shiptype.qv2</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>shipmodel</span>, <span class='kw'>coef.indices</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>:<span class='fl'>5</span>))
+    <span class='no'>shiptype.qv</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
+
+    <span class='co'>## We can plot "comparison intervals" as follows:</span>
+    <span class='co'>##   plot(shiptype.qv, xlab = "ship type")</span>
+
+    <span class='co'>## An equivalent result by using the coef.indices argument instead:</span>
+    <span class='co'>##   shiptype.qv2 &lt;- qvcalc(shipmodel, coef.indices = c(0, 2:5))</span>
+
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qv</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 }</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
 #&gt; Factor name:  type 
 #&gt;       estimate     SE quasiSE quasiVar
@@ -302,14 +311,55 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt;     D -0.07596 0.3779  0.3239  0.10491
 #&gt;     E  0.32558 0.3067  0.2322  0.05390
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 0.9 
-#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='img'><img src='qvcalc-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'>
+<span class='co'>## Example of a "coxph" model</span>
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>survival</span>)) {
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
+    <span class='no'>cancer_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>)
+    <span class='no'>celltype_qv</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>cancer_model</span>, <span class='st'>"celltype"</span>)
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>celltype_qv</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: survival</span></div><div class='output co'>#&gt; Model call:  coxph(formula = Surv(time, status) ~ celltype, data = veteran) 
+#&gt; Factor name:  celltype 
+#&gt;                estimate        SE   quasiSE   quasiVar
+#&gt;     squamous  0.0000000 0.0000000 0.2023772 0.04095651
+#&gt;     smallcell 1.0012532 0.2535074 0.1501828 0.02255487
+#&gt;     adeno     1.1477130 0.2928805 0.2049427 0.04200152
+#&gt;     large     0.2301455 0.2772930 0.1991861 0.03967510
+#&gt; Worst relative errors in SEs of simple contrasts (%):  -1.7 2.4 
+#&gt; Worst relative errors over *all* contrasts (%):  -4.1 3.1 </div><div class='input'>
 <span class='co'>## Based on an example from ?itempar</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>psychotools</span>)) {
     <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"VerbalAggression"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"psychotools"</span>)
-    <span class='no'>raschmod</span> <span class='kw'>&lt;-</span> <span class='fu'>raschmodel</span>(<span class='no'>VerbalAggression</span>$<span class='no'>resp2</span>)
-    <span class='no'>ip1</span> <span class='kw'>&lt;-</span> <span class='fu'>itempar</span>(<span class='no'>raschmod</span>)
+    <span class='no'>raschmod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/psychotools/topics/raschmodel'>raschmodel</a></span>(<span class='no'>VerbalAggression</span>$<span class='no'>resp2</span>)
+    <span class='no'>ip1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></span>(<span class='no'>raschmod</span>)
     <span class='no'>qv1</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>ip1</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>qv1</span>) }</div><div class='output co'>#&gt; <span class='message'>Loading required package: psychotools</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called ‘psychotools’</span></div><div class='input'>
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>qv1</span>) }</div><div class='output co'>#&gt; <span class='message'>Loading required package: psychotools</span></div><div class='output co'>#&gt;                    estimate        SE   quasiSE   quasiVar
+#&gt;     S1WantCurse -1.38337955 0.1400077 0.1427898 0.02038892
+#&gt;     S1DoCurse   -1.38338563 0.1400078 0.1427899 0.02038896
+#&gt;     S1WantScold -0.73070582 0.1306459 0.1328148 0.01763977
+#&gt;     S1DoScold   -0.55660577 0.1293742 0.1314680 0.01728384
+#&gt;     S1WantShout -0.24905230 0.1283297 0.1303847 0.01700016
+#&gt;     S1DoShout    0.69813569 0.1349252 0.1376080 0.01893598
+#&gt;     S2WantCurse -1.90929270 0.1534737 0.1571194 0.02468649
+#&gt;     S2DoCurse   -1.03672005 0.1341048 0.1364969 0.01863141
+#&gt;     S2WantScold -0.87273748 0.1320543 0.1343125 0.01803984
+#&gt;     S2DoScold   -0.11314599 0.1283548 0.1304310 0.01701224
+#&gt;     S2WantShout -0.18103325 0.1283049 0.1303675 0.01699569
+#&gt;     S2DoShout    1.31200512 0.1478902 0.1515414 0.02296478
+#&gt;     S3WantCurse -0.69552829 0.1303489 0.1324995 0.01755613
+#&gt;     S3DoCurse    0.04031978 0.1287445 0.1308728 0.01712769
+#&gt;     S3WantScold  0.51356595 0.1324282 0.1349026 0.01819870
+#&gt;     S3DoScold    1.33478884 0.1485182 0.1522130 0.02316879
+#&gt;     S3WantShout  1.35770834 0.1491611 0.1529003 0.02337851
+#&gt;     S3DoShout    2.87092053 0.2219058 0.2297809 0.05279924
+#&gt;     S4WantCurse -1.24501930 0.1373885 0.1399977 0.01959934
+#&gt;     S4DoCurse   -0.87273748 0.1320543 0.1343125 0.01803984
+#&gt;     S4WantScold  0.17794106 0.1294241 0.1316244 0.01732499
+#&gt;     S4DoScold    0.21263744 0.1296453 0.1318676 0.01738906
+#&gt;     S4WantShout  0.87109769 0.1378342 0.1407482 0.01981006
+#&gt;     S4DoShout    1.84022315 0.1654484 0.1702428 0.02898261
+#&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 1.3 
+#&gt; Worst relative errors over *all* contrasts (%):  -6.9 1.4 </div><div class='input'>
 ##  Example of a negative quasi variance
 ##  Requires the "car" package
 </div><span class='co'># NOT RUN {</span>

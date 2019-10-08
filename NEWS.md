@@ -1,3 +1,13 @@
+# qvcalc 1.0.2
+
+* (To do) Add an aesthetic for `ggplot`, as alternative to `plot.qv()`
+
+# qvcalc 1.0.1
+
+* Added an explicit method for "coxph" objects.
+
+* Removed the `Suggests: pkgdown` dependence, because we no longer use Travis CI to deploy the documentation site.
+
 # qvcalc 1.0.0
 
 * Fixed a minor bug in `plot.qv()`
