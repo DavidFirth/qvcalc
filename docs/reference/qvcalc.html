@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qvcalc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
       </span>
     </div>
 
@@ -138,6 +138,10 @@
 <span class='co'># S3 method for coxph</span>
 <span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='kw'>factorname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coef.indices</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
+<span class='co'># S3 method for survreg</span>
+<span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='kw'>factorname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>coef.indices</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='no'>...</span>)
+
 <span class='co'># S3 method for itempar</span>
 <span class='fu'>qvcalc</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
@@ -151,8 +155,8 @@
   constrained to zero).  For the generic <code>qvcalc</code>, the
   <code>object</code> can be any object for which the relevant S3 method has
   been defined.  These currently include many types of regression model
-  (via <code>qvcalc.lm</code>), including objects of class
-  <code><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></code>; 
+  (via <code>qvcalc.lm</code>), including objects of classes
+  <code><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></code> and <code><a href='https://www.rdocumentation.org/packages/survival/topics/survreg'>survreg</a></code>; 
   and also objects of class
   <code><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></code>.</p></td>
     </tr>
@@ -327,6 +331,22 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt;     large     0.2301455 0.2772930 0.1991861 0.03967510
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -1.7 2.4 
 #&gt; Worst relative errors over *all* contrasts (%):  -4.1 3.1 </div><div class='input'>
+<span class='co'>## Example of a "survreg" model</span>
+<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>survival</span>)) {
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
+    <span class='no'>cancer_model2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/survreg'>survreg</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>,
+                             <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"weibull"</span>)
+    <span class='no'>celltype_qv2</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>cancer_model2</span>, <span class='st'>"celltype"</span>)
+    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>celltype_qv2</span>)
+}</div><div class='output co'>#&gt; Model call:  survreg(formula = Surv(time, status) ~ celltype, data = veteran,      dist = "weibull") 
+#&gt; Factor name:  celltype 
+#&gt;                 estimate        SE   quasiSE   quasiVar
+#&gt;     squamous   0.0000000 0.0000000 0.1852658 0.03432341
+#&gt;     smallcell -1.0831923 0.2405345 0.1537001 0.02362371
+#&gt;     adeno     -1.2162022 0.2743860 0.2022180 0.04089213
+#&gt;     large     -0.2627843 0.2745644 0.2024398 0.04098189
+#&gt; Worst relative errors in SEs of simple contrasts (%):  -0.1 0.1 
+#&gt; Worst relative errors over *all* contrasts (%):  -0.2 0.1 </div><div class='input'>
 <span class='co'>## Based on an example from ?itempar</span>
 <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>psychotools</span>)) {
     <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"VerbalAggression"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"psychotools"</span>)
