@@ -16,13 +16,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -55,6 +57,7 @@
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -79,7 +82,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -100,6 +103,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -156,9 +160,9 @@
   <code>object</code> can be any object for which the relevant S3 method has
   been defined.  These currently include many types of regression model
   (via <code>qvcalc.lm</code>), including objects of classes
-  <code><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></code> and <code><a href='https://www.rdocumentation.org/packages/survival/topics/survreg'>survreg</a></code>; 
+  <code><a href='https://rdrr.io/pkg/survival/man/coxph.html'>coxph</a></code> and <code><a href='https://rdrr.io/pkg/survival/man/survreg.html'>survreg</a></code>; 
   and also objects of class
-  <code><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></code>.</p></td>
+  <code><a href='https://rdrr.io/pkg/psychotools/man/itempar.html'>itempar</a></code>.</p></td>
     </tr>
     <tr>
       <th>factorname</th>
@@ -198,7 +202,8 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
-    <p>The <code>qvcalc.default</code> method is the computational backend for
+
+<p>The <code>qvcalc.default</code> method is the computational backend for
   all other, class-specific methods.</p>
 <p>In <code>qvcalc.default</code>, none of the arguments other than
   <code>object</code> is used in computing the result.  The remaining
@@ -219,7 +224,7 @@
   must have its <code>"alias"</code> attribute be <code>TRUE</code>.  These
   attributes result from use of the default arguments
   <code>vcov = TRUE, alias = TRUE</code>
-  when the <code><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></code> function is called.</p>  
+  when the <code><a href='https://rdrr.io/pkg/psychotools/man/itempar.html'>itempar</a></code> function is called.</p>  
 <p>Ordinarily the quasi variances are positive and so their square roots
   (the quasi standard errors) exist and can be used in plots, etc.</p>
 <p>Occasionally one (and only one) of the quasi variances is negative, and
@@ -288,15 +293,15 @@ presentation of statistical models. <em>Sociological Methodology</em>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>##  Overdispersed Poisson loglinear model for ship damage data</span>
 <span class='co'>##  from McCullagh and Nelder (1989), Sec 6.3.2 </span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>MASS</span>)) {
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>ships</span>)
-    <span class='no'>ships</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span>(<span class='no'>ships</span>$<span class='no'>year</span>)
-    <span class='no'>ships</span>$<span class='no'>period</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span>(<span class='no'>ships</span>$<span class='no'>period</span>)
-    <span class='no'>shipmodel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>incidents</span> ~ <span class='no'>type</span> + <span class='no'>year</span> + <span class='no'>period</span>,
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>MASS</span>)) {
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>ships</span>)
+    <span class='no'>ships</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>ships</span>$<span class='no'>year</span>)
+    <span class='no'>ships</span>$<span class='no'>period</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>ships</span>$<span class='no'>period</span>)
+    <span class='no'>shipmodel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>incidents</span> ~ <span class='no'>type</span> + <span class='no'>year</span> + <span class='no'>period</span>,
                      <span class='kw'>family</span> <span class='kw'>=</span> <span class='no'>quasipoisson</span>,
                      <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ships</span>,
                      <span class='kw'>subset</span> <span class='kw'>=</span> (<span class='no'>service</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>),
-                     <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>log</a></span>(<span class='no'>service</span>))
+                     <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>service</span>))
     <span class='no'>shiptype.qv</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>shipmodel</span>, <span class='st'>"type"</span>)
 
     <span class='co'>## We can plot "comparison intervals" as follows:</span>
@@ -305,7 +310,7 @@ presentation of statistical models. <em>Sociological Methodology</em>
     <span class='co'>## An equivalent result by using the coef.indices argument instead:</span>
     <span class='co'>##   shiptype.qv2 &lt;- qvcalc(shipmodel, coef.indices = c(0, 2:5))</span>
 
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>shiptype.qv</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>shiptype.qv</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>)
 }</div><div class='output co'>#&gt; Model call:  glm(formula = incidents ~ type + year + period, family = quasipoisson,      data = ships, subset = (service &gt; 0), offset = log(service)) 
 #&gt; Factor name:  type 
 #&gt;       estimate     SE quasiSE quasiVar
@@ -317,11 +322,11 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 0.9 
 #&gt; Worst relative errors over *all* contrasts (%):  -2.1 1.6 </div><div class='input'>
 <span class='co'>## Example of a "coxph" model</span>
-<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>survival</span>)) {
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
-    <span class='no'>cancer_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/coxph'>coxph</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>)
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>survival</span>)) {
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
+    <span class='no'>cancer_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/coxph.html'>coxph</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>)
     <span class='no'>celltype_qv</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>cancer_model</span>, <span class='st'>"celltype"</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>celltype_qv</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>celltype_qv</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: survival</span></div><div class='output co'>#&gt; Model call:  coxph(formula = Surv(time, status) ~ celltype, data = veteran) 
 #&gt; Factor name:  celltype 
 #&gt;                estimate        SE   quasiSE   quasiVar
@@ -332,12 +337,12 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -1.7 2.4 
 #&gt; Worst relative errors over *all* contrasts (%):  -4.1 3.1 </div><div class='input'>
 <span class='co'>## Example of a "survreg" model</span>
-<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>survival</span>)) {
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
-    <span class='no'>cancer_model2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/survreg'>survreg</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/survival/topics/Surv'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>,
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>survival</span>)) {
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"veteran"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"survival"</span>)
+    <span class='no'>cancer_model2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/survreg.html'>survreg</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='no'>time</span>,<span class='no'>status</span>) ~ <span class='no'>celltype</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>veteran</span>,
                              <span class='kw'>dist</span> <span class='kw'>=</span> <span class='st'>"weibull"</span>)
     <span class='no'>celltype_qv2</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>cancer_model2</span>, <span class='st'>"celltype"</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>celltype_qv2</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>celltype_qv2</span>)
 }</div><div class='output co'>#&gt; Model call:  survreg(formula = Surv(time, status) ~ celltype, data = veteran,      dist = "weibull") 
 #&gt; Factor name:  celltype 
 #&gt;                 estimate        SE   quasiSE   quasiVar
@@ -348,12 +353,12 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.1 0.1 
 #&gt; Worst relative errors over *all* contrasts (%):  -0.2 0.1 </div><div class='input'>
 <span class='co'>## Based on an example from ?itempar</span>
-<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>psychotools</span>)) {
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"VerbalAggression"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"psychotools"</span>)
-    <span class='no'>raschmod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/psychotools/topics/raschmodel'>raschmodel</a></span>(<span class='no'>VerbalAggression</span>$<span class='no'>resp2</span>)
-    <span class='no'>ip1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/psychotools/topics/itempar'>itempar</a></span>(<span class='no'>raschmod</span>)
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>psychotools</span>)) {
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"VerbalAggression"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"psychotools"</span>)
+    <span class='no'>raschmod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/psychotools/man/raschmodel.html'>raschmodel</a></span>(<span class='no'>VerbalAggression</span>$<span class='no'>resp2</span>)
+    <span class='no'>ip1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/psychotools/man/itempar.html'>itempar</a></span>(<span class='no'>raschmod</span>)
     <span class='no'>qv1</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>ip1</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>qv1</span>) }</div><div class='output co'>#&gt; <span class='message'>Loading required package: psychotools</span></div><div class='output co'>#&gt;                    estimate        SE   quasiSE   quasiVar
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>qv1</span>) }</div><div class='output co'>#&gt; <span class='message'>Loading required package: psychotools</span></div><div class='output co'>#&gt;                    estimate        SE   quasiSE   quasiVar
 #&gt;     S1WantCurse -1.38337955 0.1400077 0.1427898 0.02038892
 #&gt;     S1DoCurse   -1.38338563 0.1400078 0.1427899 0.02038896
 #&gt;     S1WantScold -0.73070582 0.1306459 0.1328148 0.01763977
@@ -380,18 +385,18 @@ presentation of statistical models. <em>Sociological Methodology</em>
 #&gt;     S4DoShout    1.84022315 0.1654484 0.1702428 0.02898261
 #&gt; Worst relative errors in SEs of simple contrasts (%):  -0.7 1.3 
 #&gt; Worst relative errors over *all* contrasts (%):  -6.9 1.4 </div><div class='input'>
-##  Example of a negative quasi variance
-##  Requires the "car" package
-</div><span class='co'># NOT RUN {</span>
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>car</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>Prestige</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attach'>attach</a></span>(<span class='no'>Prestige</span>)
-    <span class='no'>mymodel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>prestige</span> ~ <span class='no'>type</span> + <span class='no'>education</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>qvcalc</span>)
+<span class='co'>##  Example of a negative quasi variance</span>
+<span class='co'>##  Requires the "car" package</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>car</span>)
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>Prestige</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span>(<span class='no'>Prestige</span>)
+    <span class='no'>mymodel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>prestige</span> ~ <span class='no'>type</span> + <span class='no'>education</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>qvcalc</span>)
     <span class='no'>type.qvs</span> <span class='kw'>&lt;-</span> <span class='fu'>qvcalc</span>(<span class='no'>mymodel</span>, <span class='st'>"type"</span>)
     <span class='co'>##  Warning message: </span>
     <span class='co'>##  In sqrt(qv) : NaNs produced</span>
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>type.qvs</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>type.qvs</span>)
     <span class='co'>##  Model call:  lm(formula = prestige ~ type + education) </span>
     <span class='co'>##  Factor name:  type </span>
     <span class='co'>##          estimate       SE  quasiSE  quasiVar</span>
@@ -400,10 +405,10 @@ presentation of statistical models. <em>Sociological Methodology</em>
     <span class='co'>##    wc   -5.458495 2.690667      NaN -1.022262</span>
     <span class='co'>##  Worst relative errors in SEs of simple contrasts (%):  0 0 </span>
     <span class='co'>##  Worst relative errors over *all* contrasts (%):  0 0</span>
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>type.qvs</span>)
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>type.qvs</span>)
     <span class='co'>##  Error in plot.qv(type.qvs) :  No comparison intervals available,</span>
     <span class='co'>##  since one of the quasi variances is negative.  See ?qvcalc for more.</span>
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -426,19 +431,23 @@ presentation of statistical models. <em>Sociological Methodology</em>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by David Firth.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
