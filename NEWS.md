@@ -1,6 +1,10 @@
-# qvcalc 1.0.3
+# qvcalc 1.0.4
 
 * (To do) Add an aesthetic for `ggplot`, as alternative to `plot.qv()`
+
+# qvcalc 1.0.3
+
+* Replaced URLs by DOIs, in function documentation references.
 
 # qvcalc 1.0.2
 

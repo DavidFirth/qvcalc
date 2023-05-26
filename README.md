@@ -1,8 +1,5 @@
 # qvcalc
 
-[![Travis-CI Build Status](https://travis-ci.org/DavidFirth/qvcalc.svg?branch=master)](https://travis-ci.org/DavidFirth/qvcalc)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/qvcalc)](https://cran.r-project.org/package=qvcalc)
-
 The **qvcalc** package provides _R_ functions to compute and display *quasi-variances* that often allow a more economical 
 summary of the variance-covariance matrix for parameters in a statistical model.
 
