@@ -1,6 +1,6 @@
 Package: qvcalc
-Version: 1.0.2
-Date: 2020-02-14
+Version: 1.0.3
+Date: 2023-05-26
 Title: Quasi Variances for Factor Effects in Statistical Models
 Author: David Firth
 Maintainer: David Firth <d.firth@warwick.ac.uk>
