@@ -1,9 +1,6 @@
 # qvcalc
 
-[![CRAN Status](https://www.r-pkg.org/badges/version/pkgdown)]
-  (https://cran.r-project.org/package=pkgdown){.pkgdown-release}
-[![R-CMD-check](https://github.com/r-lib/pkgdown/workflows/R-CMD-check/badge.svg)]
-  (https://github.com/r-lib/pkgdown/actions){.pkgdown-devel}
+[![CRAN Status](https://www.r-pkg.org/badges/version/qvcalc)]
   
 The **qvcalc** package provides _R_ functions to compute and display *quasi-variances* that often allow a more economical 
 summary of the variance-covariance matrix for parameters in a statistical model.
