@@ -1,5 +1,6 @@
-# qvcalc 1.0.4
+# qvcalc 1.0.3.1 (development)
 
+* (To do) Add more options to `plot.qv()`
 * (To do) Add an aesthetic for `ggplot`, as alternative to `plot.qv()`
 
 # qvcalc 1.0.3
