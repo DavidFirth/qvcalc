@@ -10,8 +10,8 @@ Full package documentation, including version history, can be viewed at https://
 
 For more details on the statistical method, see the references below. 
 
-The web page at http://warwick.ac.uk/qvcalc gives information 
-also about an online calculator implemented in _JavaScript_, for those who do not use *R*.
+<!-- The web page at http://warwick.ac.uk/qvcalc gives information 
+also about an online calculator implemented in _JavaScript_, for those who do not use *R*. -->
 
 To install the package from CRAN (in _R_):
 ```
