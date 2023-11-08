@@ -6,6 +6,10 @@ Author: David Firth
 Maintainer: David Firth <d.firth@warwick.ac.uk>
 URL: https://davidfirth.github.io/qvcalc/
 Description: Functions to compute quasi variances and associated measures of approximation error.
-Suggests: relimp, MASS
+Suggests: 
+    relimp,
+    MASS,
+    testthat (>= 3.0.0)
 Enhances: psychotools, survival
 License: GPL-2 | GPL-3
+Config/testthat/edition: 3
