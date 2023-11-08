@@ -49,13 +49,13 @@ be used.
 \examples{
 
 ##  Overdispersed Poisson loglinear model for ship damage data
-##  from McCullagh and Nelder (1989), Sec 6.3.2 
+##  from McCullagh and Nelder (1989), Sec 6.3.2
 library(MASS)
 data(ships)
 ships$year <- as.factor(ships$year)
 ships$period <- as.factor(ships$period)
 shipmodel <- glm(formula = incidents ~ type + year + period,
-    family = quasipoisson, 
+    family = quasipoisson,
     data = ships, subset = (service > 0), offset = log(service))
 qvs <- qvcalc(shipmodel, "type")
 summary(qvs, digits = 4)
