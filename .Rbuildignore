@@ -11,3 +11,4 @@ docs
 ^docs$
 ^pkgdown$
 ^\.github$
+^qvcalc\.Rproj$
