@@ -1,3 +1,5 @@
+#' @export
+#' @rdname qvcalc
 qvcalc.itempar <- function(object, ...){
   alias = attr(object, "alias")
   if (!isTRUE(alias)) stop(
