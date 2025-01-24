@@ -19,7 +19,7 @@ suggested by Ridout (1989)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">qvcalc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ suggested by Ridout (1989)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Quasi Variances for Model Coefficients</h1>
-      <small class="dont-index">Source: <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.R" class="external-link"><code>R/qvcalc.R</code></a>, <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.coxph.R" class="external-link"><code>R/qvcalc.coxph.R</code></a>, <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.itempar.R" class="external-link"><code>R/qvcalc.itempar.R</code></a>, and 1 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.R" class="external-link"><code>R/qvcalc.R</code></a>, <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.coxph.R" class="external-link"><code>R/qvcalc.coxph.R</code></a>, <a href="https://github.com/DavidFirth/qvcalc/blob/master/R/qvcalc.itempar.R" class="external-link"><code>R/qvcalc.itempar.R</code></a>, and 2 more</small>
       <div class="d-none name"><code>qvcalc.Rd</code></div>
     </div>
 
@@ -78,7 +78,10 @@ suggested by Ridout (1989).</p>
 <span><span class="fu">qvcalc</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'lm'</span></span>
-<span><span class="fu">qvcalc</span><span class="op">(</span><span class="va">object</span>, factorname <span class="op">=</span> <span class="cn">NULL</span>, coef.indices <span class="op">=</span> <span class="cn">NULL</span>, dispersion <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">qvcalc</span><span class="op">(</span><span class="va">object</span>, factorname <span class="op">=</span> <span class="cn">NULL</span>, coef.indices <span class="op">=</span> <span class="cn">NULL</span>, dispersion <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'survreg'</span></span>
+<span><span class="fu">qvcalc</span><span class="op">(</span><span class="va">object</span>, factorname <span class="op">=</span> <span class="cn">NULL</span>, coef.indices <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -194,7 +197,7 @@ way since one of the quasi standard errors is not a real number.</p>
     <p>Easton, D. F, Peto, J. and Babiker, A. G. A. G. (1991) Floating
 absolute risk: an alternative to relative risk in survival and case-control
 analysis avoiding an arbitrary reference group.  <em>Statistics in
-Medicine</em> <b>10</b>, 1025–1035.</p>
+Medicine</em> <b>10</b>, 1025–1035. <a href="https://doi.org/10.1002/sim.4780100703" class="external-link">doi:10.1002/sim.4780100703</a></p>
 <p>Firth, D. (2000) Quasi-variances in Xlisp-Stat and on the web.
 <em>Journal of Statistical Software</em> <b>5.4</b>, 1–13.
 <a href="https://doi.org/10.18637/jss.v005.i04" class="external-link">doi:10.18637/jss.v005.i04</a></p>
