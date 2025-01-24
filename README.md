@@ -19,7 +19,7 @@ install.packages("qvcalc")
 
 ## References
 
-* Firth, D. and Menezes, R. X. de (2004). Quasi-variances. *Biometrika* **91**, 65–80.  http://dx.doi.org/10.1093/biomet/91.1.65
+* Firth, D. and Menezes, R. X. de (2004). Quasi-variances. *Biometrika* **91**, 65–80.  https://doi.org/10.1093/biomet/91.1.65
 
-* Firth, D. (2003). Overcoming the reference category problem in the presentation of statistical models. *Sociological Methodology* **33**, 1–18.  http://dx.doi.org/10.1111/j.0081-1750.2003.t01-1-00125.x
+* Firth, D. (2003). Overcoming the reference category problem in the presentation of statistical models. *Sociological Methodology* **33**, 1–18.  https://doi.org/10.1111/j.0081-1750.2003.t01-1-00125.x
   
