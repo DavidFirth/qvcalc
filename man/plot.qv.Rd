@@ -75,17 +75,14 @@ Medicine} \bold{10}, 1025--1035.
 
 Firth, D. (2000) Quasi-variances in Xlisp-Stat and on the web.
 \emph{Journal of Statistical Software} \bold{5.4}, 1--13.
-c("\\Sexpr[results=rd]{tools:::Rd_expr_doi(\"#1\")}",
-"10.18637/jss.v005.i04")\Sexpr{tools:::Rd_expr_doi("10.18637/jss.v005.i04")}
+\Sexpr[results=rd]{tools:::Rd_expr_doi("10.18637/jss.v005.i04")}
 
 Firth, D. (2003) Overcoming the reference category problem in the
 presentation of statistical models. \emph{Sociological Methodology}
-\bold{33}, 1--18. c("\\Sexpr[results=rd]{tools:::Rd_expr_doi(\"#1\")}",
-"10.1111/j.0081-1750.2003.t01-1-00125.x")\Sexpr{tools:::Rd_expr_doi("10.1111/j.0081-1750.2003.t01-1-00125.x")}
+\bold{33}, 1--18. \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1111/j.0081-1750.2003.t01-1-00125.x")}
 
 Firth, D. and Mezezes, R. X. de (2004) Quasi-variances.  \emph{Biometrika}
-\bold{91}, 65--80.  c("\\Sexpr[results=rd]{tools:::Rd_expr_doi(\"#1\")}",
-"10.1093/biomet/91.1.65")\Sexpr{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
+\bold{91}, 65--80.  \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
 
 McCullagh, P. and Nelder, J. A. (1989) \emph{Generalized Linear Models}.
 London: Chapman and Hall.

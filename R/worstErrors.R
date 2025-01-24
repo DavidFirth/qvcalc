@@ -1,10 +1,10 @@
 #' Accuracy of a Quasi-variance Approximation
-#' 
+#'
 #' Computes the worst relative error, among all contrasts, for the standard
 #' error as derived from a set of quasi variances.  For details of the method
 #' see Menezes (1999) or Firth and Menezes (2004).
-#' 
-#' 
+#'
+#'
 #' @param qv.object An object of class \code{qv}
 #' @return A numeric vector of length 2, the worst negative relative error and
 #' the worst positive relative error.
@@ -12,18 +12,17 @@
 #' @seealso \code{\link{qvcalc}}
 #' @references Firth, D. and Mezezes, R. X. de (2004) Quasi-variances.
 #' \emph{Biometrika} \bold{91}, 69--80.
-#' c("\\Sexpr[results=rd]{tools:::Rd_expr_doi(\"#1\")}",
-#' "10.1093/biomet/91.1.65")\Sexpr{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
-#' 
+#' \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
+#'
 #' McCullagh, P. and Nelder, J. A. (1989) \emph{Generalized Linear Models}.
 #' London: Chapman and Hall.
-#' 
+#'
 #' Menezes, R. X. (1999) More useful standard errors for group and factor
 #' effects in generalized linear models.  \emph{D.Phil. Thesis}, Department of
 #' Statistics, University of Oxford.
 #' @keywords regression models
 #' @examples
-#' 
+#'
 #' ##  Overdispersed Poisson loglinear model for ship damage data
 #' ##  from McCullagh and Nelder (1989), Sec 6.3.2
 #' library(MASS)
@@ -31,12 +30,12 @@
 #' ships$year <- as.factor(ships$year)
 #' ships$period <- as.factor(ships$period)
 #' shipmodel <- glm(formula = incidents ~ type + year + period,
-#'     family = quasipoisson, 
+#'     family = quasipoisson,
 #'     data = ships, subset = (service > 0), offset = log(service))
 #' shiptype.qvs <- qvcalc(shipmodel, "type")
 #' summary(shiptype.qvs, digits = 4)
 #' worstErrors(shiptype.qvs)
-#' 
+#'
 #' @export worstErrors
 worstErrors <- function(qv.object)
 {
