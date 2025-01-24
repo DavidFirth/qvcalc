@@ -2,10 +2,6 @@
 ##  for a resulting "qv" object.
 
 
-
-
-
-
 #' Quasi Variances for Model Coefficients
 #'
 #' Computes a set of quasi variances (and corresponding quasi standard errors)
@@ -91,19 +87,18 @@
 #' @references Easton, D. F, Peto, J. and Babiker, A. G. A. G. (1991) Floating
 #' absolute risk: an alternative to relative risk in survival and case-control
 #' analysis avoiding an arbitrary reference group.  \emph{Statistics in
-#' Medicine} \bold{10}, 1025--1035.
+#' Medicine} \bold{10}, 1025--1035. \doi{10.1002/sim.4780100703}
 #'
 #' Firth, D. (2000) Quasi-variances in Xlisp-Stat and on the web.
 #' \emph{Journal of Statistical Software} \bold{5.4}, 1--13.
-#' \Sexpr[results=rd]{tools:::Rd_expr_doi("10.18637/jss.v005.i04")}
+#' \doi{10.18637/jss.v005.i04}
 #'
 #' Firth, D. (2003) Overcoming the reference category problem in the
 #' presentation of statistical models. \emph{Sociological Methodology}
-#' \bold{33}, 1--18. \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1111/j.0081-1750.2003.t01-1-00125.x")}
+#' \bold{33}, 1--18. \doi{10.1111/j.0081-1750.2003.t01-1-00125.x}
 #'
 #' Firth, D. and de Mezezes, R. X. (2004) Quasi-variances.  \emph{Biometrika}
-#' \bold{91}, 65--80. \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
-
+#' \bold{91}, 65--80. \doi{10.1093/biomet/91.1.65}
 #'
 #' McCullagh, P. and Nelder, J. A. (1989) \emph{Generalized Linear Models}.
 #' London: Chapman and Hall.
@@ -192,7 +187,7 @@
 #'     ##  since one of the quasi variances is negative.  See ?qvcalc for more.
 #' }
 #'
-#' @export qvcalc
+#' @export
 qvcalc <- function (object, ...) UseMethod("qvcalc")
 
 #' @export
@@ -315,7 +310,7 @@ qvcalc.default <- function(object, factorname = NULL, coef.indices = NULL,
 #'
 #' indentPrint("this indented by 10 spaces", indent=10)
 #'
-#' @export indentPrint
+#' @export
 indentPrint <- function(object, indent = 4, ...){
     zz <- ""
     tc <- textConnection("zz", "w", local = TRUE)
@@ -356,9 +351,6 @@ summary.qv <- function(object, ...)
 }
 
 
-
-
-
 #' Plot method for objects of class qv
 #'
 #' Provides visualization of estimated contrasts using intervals based on quasi
@@ -381,21 +373,23 @@ summary.qv <- function(object, ...)
 #' @return \code{invisible(x)}
 #' @author David Firth, \email{d.firth@@warwick.ac.uk}
 #' @seealso \code{\link{qvcalc}}
-#' @references Easton, D. F, Peto, J. and Babiker, A. G. A. G. (1991) Floating
+#' @references
+#'
+#' Easton, D. F, Peto, J. and Babiker, A. G. A. G. (1991) Floating
 #' absolute risk: an alternative to relative risk in survival and case-control
 #' analysis avoiding an arbitrary reference group.  \emph{Statistics in
-#' Medicine} \bold{10}, 1025--1035.
+#' Medicine} \bold{10}, 1025--1035. \doi{10.1002/sim.4780100703}
 #'
 #' Firth, D. (2000) Quasi-variances in Xlisp-Stat and on the web.
 #' \emph{Journal of Statistical Software} \bold{5.4}, 1--13.
-#' \Sexpr[results=rd]{tools:::Rd_expr_doi("10.18637/jss.v005.i04")}
+#' \doi{10.18637/jss.v005.i04}
 #'
 #' Firth, D. (2003) Overcoming the reference category problem in the
 #' presentation of statistical models. \emph{Sociological Methodology}
-#' \bold{33}, 1--18. \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1111/j.0081-1750.2003.t01-1-00125.x")}
+#' \bold{33}, 1--18. \doi{10.1111/j.0081-1750.2003.t01-1-00125.x}
 #'
 #' Firth, D. and Mezezes, R. X. de (2004) Quasi-variances.  \emph{Biometrika}
-#' \bold{91}, 65--80.  \Sexpr[results=rd]{tools:::Rd_expr_doi("10.1093/biomet/91.1.65")}
+#' \bold{91}, 65--80.  \doi{10.1093/biomet/91.1.65}
 #'
 #' McCullagh, P. and Nelder, J. A. (1989) \emph{Generalized Linear Models}.
 #' London: Chapman and Hall.
@@ -403,6 +397,7 @@ summary.qv <- function(object, ...)
 #' Menezes, R. X. (1999) More useful standard errors for group and factor
 #' effects in generalized linear models.  \emph{D.Phil. Thesis}, Department of
 #' Statistics, University of Oxford.
+#'
 #' @keywords models hplot
 #' @examples
 #'
@@ -424,6 +419,8 @@ summary.qv <- function(object, ...)
 #' qvs2$qvframe <- qvs$qvframe[order(est, decreasing = TRUE), , drop = FALSE]
 #' plot(qvs2)
 #'
+#' @export
+#' 
 plot.qv <- function(x,
                     intervalWidth = 2,
                     ylab = "estimate",
@@ -463,4 +460,3 @@ plot.qv <- function(x,
     segments(xvalues, tails, xvalues, tops, ...)
     invisible(x)
 }
-
